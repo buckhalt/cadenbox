@@ -3,6 +3,7 @@
 import { useMutation, useQuery } from "convex/react";
 import { api } from "~/convex/_generated/api";
 import { faker } from "@faker-js/faker";
+import { redirect } from "next/navigation";
 
 export default function Home() {
   const createGame = useMutation(api.games.createGame);
@@ -11,6 +12,7 @@ export default function Home() {
   const newGame = () => {
     const code = faker.string.alpha({ length: 6, casing: "upper" });
     createGame({ code });
+    redirect(`/games/${code}`);
   };
 
   return (

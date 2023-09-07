@@ -19,3 +19,16 @@ export const getGames = query({
     return ctx.db.query("games").collect();
   },
 });
+
+export const getGame = query({
+  args: {
+    code: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const game = await ctx.db
+      .query("games")
+      .filter((q) => q.eq(q.field("code"), args.code))
+      .first();
+    return game;
+  },
+});
