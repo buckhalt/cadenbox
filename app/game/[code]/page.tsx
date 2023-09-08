@@ -26,17 +26,17 @@ export default function Game({ params }: { params: { code: string } }) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          {game?.players.length && game.players.length > 0 ? (
-            <div className="flex flex-col items-center">
-              {game.players.map((player) => (
-                <div key={player} className="text-center">
+          <div className="flex flex-wrap justify-evenly">
+            {game?.players.length && game.players.length > 0 ? (
+              game.players.map((player) => (
+                <div key={player} className="text-center mb-4">
                   <PlayerCard name={player} />
                 </div>
-              ))}
-            </div>
-          ) : (
-            <p>No players in the game.</p>
-          )}
+              ))
+            ) : (
+              <p>No players in the game.</p>
+            )}
+          </div>
         </CardContent>
         <CardFooter>
           <Button> Start Game </Button>
