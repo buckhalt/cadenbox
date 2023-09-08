@@ -11,8 +11,7 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { Button } from "~/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
-import { faker } from "@faker-js/faker";
+import PlayerCard from "~/components/playerCard";
 
 export default function Game({ params }: { params: { code: string } }) {
   const code = params.code;
@@ -31,15 +30,7 @@ export default function Game({ params }: { params: { code: string } }) {
             <div className="flex flex-col items-center">
               {game.players.map((player) => (
                 <div key={player} className="text-center">
-                  <Avatar>
-                    <AvatarImage
-                      src={faker.image.urlLoremFlickr({
-                        category: "animal",
-                      })}
-                    />
-                    <AvatarFallback>{player.charAt(0)}</AvatarFallback>
-                  </Avatar>
-                  <div>{player}</div>
+                  <PlayerCard name={player} />
                 </div>
               ))}
             </div>
