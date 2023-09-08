@@ -32,3 +32,21 @@ export const getGame = query({
     return game;
   },
 });
+
+export const addPlayer = mutation({
+  args: {
+    code: v.string(),
+    player: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const game = await ctx.db
+      .query("games")
+      .filter((q) => q.eq(q.field("code"), args.code))
+      .first();
+    if (game) {
+      await ctx.db.patch(game._id, {
+        players: [...game.players, args.player],
+      });
+    }
+  },
+});

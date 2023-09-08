@@ -12,7 +12,7 @@ export default function Home() {
   const newGame = () => {
     const code = faker.string.alpha({ length: 6, casing: "upper" });
     createGame({ code });
-    redirect(`/games/${code}`);
+    redirect(`/game/${code}`);
   };
 
   return (
