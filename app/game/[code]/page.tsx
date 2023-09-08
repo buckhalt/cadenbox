@@ -30,8 +30,12 @@ export default function Game({ params }: { params: { code: string } }) {
               {game.players.map((player) => (
                 <div key={player} className="text-center">
                   <Avatar>
-                    <AvatarImage src={faker.image.avatar()} />
-                    <AvatarFallback>{player}</AvatarFallback>
+                    <AvatarImage
+                      src={faker.image.urlLoremFlickr({
+                        category: "animal",
+                      })}
+                    />
+                    <AvatarFallback>{player.charAt(0)}</AvatarFallback>
                   </Avatar>
                   <div>{player}</div>
                 </div>
