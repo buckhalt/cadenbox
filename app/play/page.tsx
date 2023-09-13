@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { faker } from "@faker-js/faker";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -22,24 +23,26 @@ import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 
 const JoinGameSchema = z.object({
   code: z.string().length(4),
-  player: z.string().min(1),
+  name: z.string().min(1),
 });
 
 export default function Join() {
-  const addPlayer = useMutation(api.games.addPlayer);
+  const addPlayerToGame = useMutation(api.games.addPlayerToGame);
+  const createPlayer = useMutation(api.players.createPlayer);
 
   const form = useForm<z.infer<typeof JoinGameSchema>>({
     resolver: zodResolver(JoinGameSchema),
     defaultValues: {
       code: "",
-      player: "",
+      name: "",
     },
   });
   function onSubmit(data: z.infer<typeof JoinGameSchema>) {
-    console.log("submitted", data);
     const code = data.code;
-    const player = data.player;
-    addPlayer({ code, player });
+    const name = data.name;
+    const color = faker.color.rgb();
+    createPlayer({ code, name, color });
+    addPlayerToGame({ code, name });
     router.push(`/play/${code}`);
   }
 
@@ -68,7 +71,7 @@ export default function Join() {
               />
               <FormField
                 control={form.control}
-                name="player"
+                name="name"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Player Name</FormLabel>

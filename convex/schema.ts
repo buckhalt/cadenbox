@@ -9,4 +9,11 @@ export default defineSchema({
     players: v.array(v.string()),
     round: v.number(),
   }),
+
+  players: defineTable({
+    code: v.string(),
+    name: v.string(),
+    points: v.number(),
+    color: v.string(),
+  }),
 });

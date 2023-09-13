@@ -33,10 +33,10 @@ export const getGame = query({
   },
 });
 
-export const addPlayer = mutation({
+export const addPlayerToGame = mutation({
   args: {
     code: v.string(),
-    player: v.string(),
+    name: v.string(),
   },
   handler: async (ctx, args) => {
     const game = await ctx.db
@@ -44,8 +44,12 @@ export const addPlayer = mutation({
       .filter((q) => q.eq(q.field("code"), args.code))
       .first();
     if (game) {
+      // check if player with name already exists in game
+      if (game.players.includes(args.name)) {
+        throw new Error("Player with that name already exists in game");
+      }
       await ctx.db.patch(game._id, {
-        players: [...game.players, args.player],
+        players: [...game.players, args.name],
       });
     }
   },

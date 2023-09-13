@@ -1,15 +1,13 @@
-import { faker } from "@faker-js/faker";
 import { Smile } from "lucide-react";
 
 interface PlayerCardProps {
   name: string;
+  color: string;
 }
 
-const PlayerCard: React.FC<PlayerCardProps> = ({ name }) => {
-  const randomColor = faker.color.rgb();
-
+const PlayerCard: React.FC<PlayerCardProps> = ({ name, color }) => {
   const smileStyle = {
-    color: randomColor,
+    color: color,
   };
 
   return (
