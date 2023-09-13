@@ -20,6 +20,7 @@ interface SubmitAnswersProps {
 
 function SubmitAnswers({ code, nextStep }: SubmitAnswersProps) {
   const game = useQuery(api.games.getGame, { code });
+  const allPlayers = useQuery(api.players.getAllPlayersInGame, { code });
 
   return (
     <div>
@@ -30,10 +31,10 @@ function SubmitAnswers({ code, nextStep }: SubmitAnswersProps) {
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap justify-evenly">
-            {game?.players.length && game.players.length > 0 ? (
-              game.players.map((player) => (
-                <div key={player} className="text-center mb-4">
-                  <PlayerCard name={player} />
+            {allPlayers && allPlayers.length > 0 ? (
+              allPlayers.map((player) => (
+                <div key={player.name} className="text-center mb-4">
+                  <PlayerCard name={player.name} color={player.color} />
                 </div>
               ))
             ) : (
