@@ -19,10 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ConvexClientProvider>
-          <NavBar />
-          {children}
-        </ConvexClientProvider>
+        <div className="bg-[url('/public/background.svg')] bg-cover bg-center min-h-screen">
+          <ConvexClientProvider>
+            <NavBar />
+            {children}
+          </ConvexClientProvider>
+        </div>
       </body>
     </html>
   );
