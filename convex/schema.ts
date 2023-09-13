@@ -15,5 +15,6 @@ export default defineSchema({
     name: v.string(),
     points: v.number(),
     color: v.string(),
+    note: v.optional(v.string()),
   }),
 });
