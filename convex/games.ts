@@ -54,3 +54,18 @@ export const addPlayerToGame = mutation({
     }
   },
 });
+
+export const deleteGame = mutation({
+  args: {
+    code: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const game = await ctx.db
+      .query("games")
+      .filter((q) => q.eq(q.field("code"), args.code))
+      .first();
+    if (game) {
+      await ctx.db.delete(game._id);
+    }
+  },
+});

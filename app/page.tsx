@@ -1,6 +1,6 @@
 "use client";
 
-import { useMutation, useQuery } from "convex/react";
+import { useMutation } from "convex/react";
 import { api } from "~/convex/_generated/api";
 import { faker } from "@faker-js/faker";
 import { useRouter } from "next/navigation";

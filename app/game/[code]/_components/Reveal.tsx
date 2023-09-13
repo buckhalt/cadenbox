@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "~/convex/_generated/api";
 import {
   Card,
@@ -12,15 +12,23 @@ import {
 } from "~/components/ui/card";
 import { Button } from "~/components/ui/button";
 import PlayerCard from "~/components/playerCard";
+import { useRouter } from "next/navigation";
 
 interface RevealProps {
   code: string;
-  nextStep: () => void;
 }
 
-function Reveal({ code, nextStep }: RevealProps) {
+function Reveal({ code }: RevealProps) {
+  const router = useRouter();
   const game = useQuery(api.games.getGame, { code });
   const allPlayers = useQuery(api.players.getAllPlayersInGame, { code });
+
+  const deleteGame = useMutation(api.games.deleteGame);
+
+  const endGame = () => {
+    deleteGame({ code });
+    router.push("/");
+  };
 
   return (
     <div>
@@ -43,7 +51,7 @@ function Reveal({ code, nextStep }: RevealProps) {
           </div>
         </CardContent>
         <CardFooter>
-          <Button onClick={nextStep}> Next</Button>
+          <Button onClick={endGame}> Finish Game</Button>
         </CardFooter>
       </Card>
     </div>
