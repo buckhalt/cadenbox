@@ -12,6 +12,7 @@ import {
 } from "~/components/ui/card";
 import { Button } from "~/components/ui/button";
 import PlayerCard from "~/components/playerCard";
+import NoteCard from "~/components/noteCard";
 
 interface VoteProps {
   code: string;
@@ -34,7 +35,7 @@ function Vote({ code, nextStep }: VoteProps) {
             {allPlayers && allPlayers.length > 0 ? (
               allPlayers.map((player) => (
                 <div key={player.name} className="text-center mb-4">
-                  {player.note}
+                  <NoteCard note={player.note} />
                 </div>
               ))
             ) : (
