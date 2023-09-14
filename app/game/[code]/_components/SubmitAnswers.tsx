@@ -35,6 +35,7 @@ function SubmitAnswers({ code, nextStep }: SubmitAnswersProps) {
               allPlayers.map((player) => (
                 <div key={player.name} className="text-center mb-4">
                   <PlayerCard name={player.name} color={player.color} />
+                  <div>{player.note}</div>
                 </div>
               ))
             ) : (
