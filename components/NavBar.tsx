@@ -8,6 +8,7 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "~/components/ui/navigation-menu";
+import AuthButton from "~/components/AuthButton";
 
 const NavBar: React.FC = () => {
   return (
@@ -26,6 +27,9 @@ const NavBar: React.FC = () => {
               Join Game
             </NavigationMenuLink>
           </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <AuthButton />
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
