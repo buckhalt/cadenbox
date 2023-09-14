@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { Button } from "~/components/ui/button";
 import { useSession, signIn } from "next-auth/react";
 import getSongClip from "~/lib/utils/getSongClip";
-import { use } from "react";
 
 export default function Home() {
   const createGame = useMutation(api.games.createGame);
@@ -16,7 +15,7 @@ export default function Home() {
 
   const newGame = async () => {
     const code = faker.word.noun(4).toUpperCase();
-    const song = getSongClip() || "";
+    const song = getSongClip(session) || "";
     createGame({ code, song });
     router.push(`/game/${code}`);
   };
