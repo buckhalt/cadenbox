@@ -34,7 +34,7 @@ function Vote({ code, nextStep }: VoteProps) {
             {allPlayers && allPlayers.length > 0 ? (
               allPlayers.map((player) => (
                 <div key={player.name} className="text-center mb-4">
-                  <PlayerCard name={player.name} color={player.color} />
+                  {player.note}
                 </div>
               ))
             ) : (
