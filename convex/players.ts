@@ -13,6 +13,7 @@ export const createPlayer = mutation({
       name: args.name,
       points: 0,
       color: args.color,
+      note: "",
     });
   },
 });
