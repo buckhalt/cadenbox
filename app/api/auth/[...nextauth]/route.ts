@@ -1,28 +1,7 @@
 import SpotifyProvider from "next-auth/providers/spotify";
 import axios from "axios";
-
-import NextAuth, {
-  DefaultSession,
-  Account as NextAuthAccount,
-  NextAuthOptions,
-} from "next-auth";
-import { JWT as NextAuthJWT } from "next-auth/jwt";
-
-interface Session extends DefaultSession {
-  accessToken?: string;
-  error?: string;
-}
-interface Account extends NextAuthAccount {
-  expires_at: number;
-}
-
-interface JWT extends NextAuthJWT {
-  accessToken?: string;
-  refreshToken?: string;
-  accessTokenExpires?: number;
-  error?: string;
-  user?: Session["user"];
-}
+import { JWT } from "next-auth/jwt";
+import NextAuth, { NextAuthOptions } from "next-auth";
 
 const SPOTIFY_REFRESH_TOKEN_URL = "https://accounts.spotify.com/api/token";
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
@@ -69,7 +48,7 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, account, user }) {
-      if (account && user && account.expires_at) {
+      if (account && user) {
         return {
           accessToken: account.access_token,
           refreshToken: account.refresh_token,
@@ -83,7 +62,7 @@ export const authOptions: NextAuthOptions = {
       const newToken = await refreshAccessToken(token);
       return newToken;
     },
-    async session({ session, token }: { session: Session; token: JWT }) {
+    async session({ session, token }) {
       session.accessToken = token.accessToken;
       session.error = token.error;
       session.user = token.user;
