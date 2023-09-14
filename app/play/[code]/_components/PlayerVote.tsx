@@ -1,6 +1,7 @@
 "use client";
 
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
+import { useState } from "react";
 import NoteCard from "~/components/noteCard";
 import PlayerCard from "~/components/playerCard";
 import { api } from "~/convex/_generated/api";
@@ -13,27 +14,58 @@ interface PlayerVoteProps {
     name: string;
     points: number;
     color: string;
-    note?: string;
+    note: string;
+    vote: string;
   };
 }
 
 function PlayerVote({ code, player }: PlayerVoteProps) {
   const allPlayers = useQuery(api.players.getAllPlayersInGame, { code });
-
   const allPlayersShuffled = allPlayers ? shuffleArray(allPlayers) : [];
+
+  const setPlayerVote = useMutation(api.players.setPlayerVote);
+  const addPlayerPoints = useMutation(api.players.addPlayerPoints);
+
+  const castVote = (playerToVoteFor: string) => {
+    // set voting player's vote
+    setPlayerVote({
+      code: player.code,
+      name: player.name,
+      vote: playerToVoteFor,
+    });
+
+    // give points to playerToVoteFor
+    addPlayerPoints({
+      code: player.code,
+      name: playerToVoteFor,
+      points: 1,
+    });
+  };
+
+  if (player.vote) {
+    return (
+      <div>
+        <h1>Thanks for voting!</h1>
+      </div>
+    );
+  }
 
   return (
     <div>
       <div>
-        <h1>Vote! {code}</h1>
+        <h1>Select a note to cast your vote. {code}</h1>
         <div className="flex flex-col flex-wrap justify-evenly">
           <PlayerCard name={player.name} color={player.color} />
           <div className="flex flex-wrap justify-evenly">
             {allPlayersShuffled && allPlayersShuffled.length > 0 ? (
               allPlayersShuffled.map((player) => (
-                <div key={player.name} className="text-center mb-4">
+                <button
+                  key={player.name}
+                  className="text-center mb-4"
+                  onClick={() => castVote(player.name)}
+                >
                   <NoteCard note={player.note} />
-                </div>
+                </button>
               ))
             ) : (
               <p>No players in the game.</p>
