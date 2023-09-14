@@ -14,6 +14,7 @@ import { Button } from "~/components/ui/button";
 import PlayerCard from "~/components/playerCard";
 import NoteCard from "~/components/noteCard";
 import { useRouter } from "next/navigation";
+import sortPlayersByVotes from "~/lib/utils/sortPlayersByVotes";
 
 interface RevealProps {
   code: string;
@@ -32,11 +33,6 @@ function Reveal({ code }: RevealProps) {
   const router = useRouter();
   const game = useQuery(api.games.getGame, { code });
   const allPlayers = useQuery(api.players.getAllPlayersInGame, { code });
-
-  function sortPlayersByVotes(allPlayers: Player[]): Player[] {
-    allPlayers.sort((playerA, playerB) => playerB.points - playerA.points);
-    return allPlayers;
-  }
 
   if (allPlayers) {
     sortPlayersByVotes(allPlayers);
