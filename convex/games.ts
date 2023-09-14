@@ -4,12 +4,14 @@ import { v } from "convex/values";
 export const createGame = mutation({
   args: {
     code: v.string(),
+    song: v.string(),
   },
   handler: async (ctx, args) => {
     await ctx.db.insert("games", {
       code: args.code,
       players: [],
       stage: 0,
+      song: args.song,
     });
   },
 });

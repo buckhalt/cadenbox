@@ -6,15 +6,18 @@ import { faker } from "@faker-js/faker";
 import { useRouter } from "next/navigation";
 import { Button } from "~/components/ui/button";
 import { useSession, signIn } from "next-auth/react";
+import getSongClip from "~/lib/utils/getSongClip";
+import { use } from "react";
 
 export default function Home() {
   const createGame = useMutation(api.games.createGame);
   const router = useRouter();
   const { data: session } = useSession();
 
-  const newGame = () => {
+  const newGame = async () => {
     const code = faker.word.noun(4).toUpperCase();
-    createGame({ code });
+    const song = getSongClip() || "";
+    createGame({ code, song });
     router.push(`/game/${code}`);
   };
 

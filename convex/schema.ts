@@ -8,6 +8,7 @@ export default defineSchema({
     code: v.string(),
     players: v.array(v.string()),
     stage: v.number(),
+    song: v.string(),
   }),
 
   players: defineTable({
