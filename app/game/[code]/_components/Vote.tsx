@@ -12,7 +12,6 @@ import {
 } from "~/components/ui/card";
 import { Button } from "~/components/ui/button";
 import PlayerCard from "~/components/playerCard";
-import NoteCard from "~/components/noteCard";
 
 interface VoteProps {
   code: string;
@@ -28,18 +27,20 @@ function Vote({ code, nextStep }: VoteProps) {
       <Card>
         <CardHeader>
           <CardTitle>Vote{code}</CardTitle>
-          <CardDescription>Voting...</CardDescription>
+          <CardDescription>Players who have submitted votes:</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap justify-evenly">
             {allPlayers && allPlayers.length > 0 ? (
               allPlayers.map((player) => (
                 <div key={player.name} className="text-center mb-4">
-                  <NoteCard note={player.note} />
+                  {player.vote !== "" && (
+                    <PlayerCard name={player.name} color={player.color} />
+                  )}
                 </div>
               ))
             ) : (
-              <p>No players in the game.</p>
+              <p>Cast your votes!</p>
             )}
           </div>
         </CardContent>

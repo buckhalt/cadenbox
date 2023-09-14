@@ -12,7 +12,6 @@ import {
 } from "~/components/ui/card";
 import { Button } from "~/components/ui/button";
 import PlayerCard from "~/components/playerCard";
-import NoteCard from "~/components/noteCard";
 
 interface SubmitAnswersProps {
   code: string;
@@ -35,13 +34,13 @@ function SubmitAnswers({ code, nextStep }: SubmitAnswersProps) {
             {allPlayers && allPlayers.length > 0 ? (
               allPlayers.map((player) => (
                 <div key={player.name} className="text-center mb-4">
-                  {player.name != "" && (
+                  {player.note !== "" && (
                     <PlayerCard name={player.name} color={player.color} />
                   )}
                 </div>
               ))
             ) : (
-              <p>No players in the game.</p>
+              <p>Submit your answers!</p>
             )}
           </div>
         </CardContent>
