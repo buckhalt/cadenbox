@@ -42,6 +42,10 @@ function PlayerVote({ code, player }: PlayerVoteProps) {
     });
   };
 
+  const playersToVoteOn = allPlayersShuffled.filter(
+    (otherPlayer) => otherPlayer.name !== player.name
+  );
+
   if (player.vote) {
     return (
       <div>
@@ -57,8 +61,8 @@ function PlayerVote({ code, player }: PlayerVoteProps) {
         <div className="flex flex-col flex-wrap justify-evenly">
           <PlayerCard name={player.name} color={player.color} />
           <div className="flex flex-wrap justify-evenly">
-            {allPlayersShuffled && allPlayersShuffled.length > 0 ? (
-              allPlayersShuffled.map((player) => (
+            {playersToVoteOn && playersToVoteOn.length > 0 ? (
+              playersToVoteOn.map((player) => (
                 <button
                   key={player.name}
                   className="text-center mb-4"
