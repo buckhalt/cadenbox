@@ -14,6 +14,7 @@ export const createPlayer = mutation({
       points: 0,
       color: args.color,
       note: "",
+      vote: "",
     });
   },
 });
@@ -116,6 +117,26 @@ export const getPlayerPoints = query({
       .first();
     if (player) {
       return player.points;
+    }
+  },
+});
+
+export const setPlayerVote = mutation({
+  args: {
+    code: v.string(),
+    name: v.string(),
+    vote: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const player = await ctx.db
+      .query("players")
+      .filter((q) => q.eq(q.field("code"), args.code))
+      .filter((q) => q.eq(q.field("name"), args.name))
+      .first();
+    if (player) {
+      await ctx.db.patch(player._id, {
+        vote: args.vote,
+      });
     }
   },
 });
