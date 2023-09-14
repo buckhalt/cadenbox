@@ -13,12 +13,12 @@ import {
 import { Button } from "~/components/ui/button";
 import PlayerCard from "~/components/playerCard";
 
-interface WaitingRoomProps {
+interface LobbyProps {
   code: string;
   nextStep: () => void;
 }
 
-function WaitingRoom({ code, nextStep }: WaitingRoomProps) {
+function Lobby({ code, nextStep }: LobbyProps) {
   const game = useQuery(api.games.getGame, { code });
   const allPlayers = useQuery(api.players.getAllPlayersInGame, { code });
 
@@ -52,4 +52,4 @@ function WaitingRoom({ code, nextStep }: WaitingRoomProps) {
   );
 }
 
-export default WaitingRoom;
+export default Lobby;

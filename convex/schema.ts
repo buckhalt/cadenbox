@@ -7,7 +7,7 @@ export default defineSchema({
   games: defineTable({
     code: v.string(),
     players: v.array(v.string()),
-    round: v.number(),
+    stage: v.number(),
   }),
 
   players: defineTable({

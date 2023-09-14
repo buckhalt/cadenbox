@@ -9,7 +9,7 @@ export const createGame = mutation({
     await ctx.db.insert("games", {
       code: args.code,
       players: [],
-      round: 0,
+      stage: 0,
     });
   },
 });
@@ -50,6 +50,24 @@ export const addPlayerToGame = mutation({
       }
       await ctx.db.patch(game._id, {
         players: [...game.players, args.name],
+      });
+    }
+  },
+});
+
+export const advanceGameStage = mutation({
+  args: {
+    code: v.string(),
+    nextStage: v.number(),
+  },
+  handler: async (ctx, args) => {
+    const game = await ctx.db
+      .query("games")
+      .filter((q) => q.eq(q.field("code"), args.code))
+      .first();
+    if (game) {
+      await ctx.db.patch(game._id, {
+        stage: args.nextStage,
       });
     }
   },

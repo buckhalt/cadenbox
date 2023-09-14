@@ -43,7 +43,7 @@ export default function Join() {
     const color = faker.color.rgb();
     createPlayer({ code, name, color });
     addPlayerToGame({ code, name });
-    router.push(`/play/${code}`);
+    router.push(`/play/${code}?name=${name}`);
   }
 
   const router = useRouter();
