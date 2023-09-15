@@ -57,9 +57,9 @@ function PlayerVote({ code, player }: PlayerVoteProps) {
   return (
     <div>
       <div>
-        <h1>Select a note to cast your vote. {code}</h1>
-        <div className="flex flex-col flex-wrap justify-evenly">
+        <div className="flex flex-col items-center space-y-8 p-24">
           <PlayerCard name={player.name} color={player.color} />
+          <div>Select a note to cast your vote!</div>
           <div className="flex flex-wrap justify-evenly">
             {playersToVoteOn && playersToVoteOn.length > 0 ? (
               playersToVoteOn.map((player) => (

@@ -2,6 +2,7 @@
 
 import { useQuery } from "convex/react";
 import PlayerCard from "~/components/playerCard";
+import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import { api } from "~/convex/_generated/api";
 import sortPlayersByVotes from "~/lib/utils/sortPlayersByVotes";
 
@@ -29,11 +30,17 @@ function PlayerReveal({ code, player }: PlayerRevealProps) {
   return (
     <div>
       <div>
-        <h1>Reveal{code}</h1>
-        <div className="flex flex-wrap justify-evenly">
+        <div className="flex flex-col items-center space-y-8 p-24">
           <PlayerCard name={player.name} color={player.color} />
-          <p>Points: {player.points}</p>
-          {rank !== -1 && <p>Rank: {rank + 1}</p>}{" "}
+          <Card>
+            <CardHeader>
+              <h1 className="text-primary text-4xl">Results</h1>
+            </CardHeader>
+            <CardContent>
+              <p>Points: {player.points}</p>
+              {rank !== -1 && <p>Rank: {rank + 1}</p>}
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

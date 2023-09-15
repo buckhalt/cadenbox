@@ -15,7 +15,13 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 
-import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
 import * as z from "zod";
 import { useMutation } from "convex/react";
 import { api } from "~/convex/_generated/api";
@@ -64,40 +70,46 @@ function PlayerSubmitAnswers({ code, player }: PlayerSubmitAnswersProps) {
   return (
     <div>
       <div>
-        <h1>{code}</h1>
-        <div className="flex flex-wrap justify-evenly">
+        <div className="flex flex-col items-center space-y-8 p-24">
           <PlayerCard name={player.name} color={player.color} />
-          <Card>
-            <CardHeader>
-              <CardTitle>Notes of...</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-8"
-                >
-                  <FormField
-                    control={form.control}
-                    name="note"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Note</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="something really funny..."
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <Button type="submit">Submit</Button>
-                </form>
-              </Form>
-            </CardContent>
-          </Card>
+          {submitted ? (
+            <div>Note submitted! Waiting for other players...</div>
+          ) : (
+            <Card>
+              <CardHeader>
+                <CardTitle>Submit a note</CardTitle>
+                <CardDescription>
+                  Think of a creative description for the song
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Form {...form}>
+                  <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="space-y-8"
+                  >
+                    <FormField
+                      control={form.control}
+                      name="note"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Notes of...</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="watermelon on a hot day"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <Button type="submit">Submit</Button>
+                  </form>
+                </Form>
+              </CardContent>
+            </Card>
+          )}
         </div>
       </div>
     </div>
