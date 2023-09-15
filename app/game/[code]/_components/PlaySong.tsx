@@ -39,6 +39,16 @@ function PlaySong({ code, nextStep }: PlaySongProps) {
             ) : (
               <p>No players in the game.</p>
             )}
+            {game && (
+              <iframe
+                style={{ borderRadius: "12px" }}
+                src={`https://open.spotify.com/embed/track/${game.song}?utm_source=generator`}
+                width="100%"
+                height="352"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+              ></iframe>
+            )}
           </div>
         </CardContent>
         <CardFooter>

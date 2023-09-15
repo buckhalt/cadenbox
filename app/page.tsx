@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "~/components/ui/button";
 import { useSession, signIn } from "next-auth/react";
 import getSongClip from "~/lib/utils/getSongClip";
+import { Progress } from "@/components/ui/progress";
 
 export default function Home() {
   const createGame = useMutation(api.games.createGame);
@@ -19,6 +20,10 @@ export default function Home() {
     createGame({ code, song });
     router.push(`/game/${code}`);
   };
+
+  if (!session || !session.user?.name) {
+    return <div>loading...</div>;
+  }
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
