@@ -4,14 +4,14 @@ import { v } from "convex/values";
 export const createGame = mutation({
   args: {
     code: v.string(),
-    song: v.string(),
   },
   handler: async (ctx, args) => {
     await ctx.db.insert("games", {
       code: args.code,
       players: [],
       stage: 0,
-      song: args.song,
+      song: "",
+      suggestedSongs: [],
     });
   },
 });
@@ -86,6 +86,42 @@ export const deleteGame = mutation({
       .first();
     if (game) {
       await ctx.db.delete(game._id);
+    }
+  },
+});
+
+export const updateSong = mutation({
+  args: {
+    code: v.string(),
+    song: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const game = await ctx.db
+      .query("games")
+      .filter((q) => q.eq(q.field("code"), args.code))
+      .first();
+    if (game) {
+      await ctx.db.patch(game._id, {
+        song: args.song,
+      });
+    }
+  },
+});
+
+export const addSuggestedSong = mutation({
+  args: {
+    code: v.string(),
+    song: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const game = await ctx.db
+      .query("games")
+      .filter((q) => q.eq(q.field("code"), args.code))
+      .first();
+    if (game) {
+      await ctx.db.patch(game._id, {
+        suggestedSongs: [...game.suggestedSongs, args.song],
+      });
     }
   },
 });

@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "~/convex/_generated/api";
 import {
   Card,
@@ -12,6 +12,8 @@ import {
 } from "~/components/ui/card";
 import { Button } from "~/components/ui/button";
 import PlayerCard from "~/components/playerCard";
+import getSongClip from "~/lib/utils/getSongClip";
+import { useSession } from "next-auth/react";
 
 interface LobbyProps {
   code: string;
@@ -21,6 +23,21 @@ interface LobbyProps {
 function Lobby({ code, nextStep }: LobbyProps) {
   const game = useQuery(api.games.getGame, { code });
   const allPlayers = useQuery(api.players.getAllPlayersInGame, { code });
+  const updateSong = useMutation(api.games.updateSong);
+  const { data: session } = useSession();
+
+  async function startGame() {
+    if (game?.suggestedSongs) {
+      const randomSong =
+        game?.suggestedSongs[
+          Math.floor(Math.random() * game?.suggestedSongs.length)
+        ];
+      const songClip = await getSongClip(session, randomSong);
+
+      updateSong({ code, song: songClip });
+      nextStep();
+    }
+  }
 
   return (
     <div>
@@ -28,7 +45,8 @@ function Lobby({ code, nextStep }: LobbyProps) {
         <CardHeader>
           <CardTitle>Game code: {code}</CardTitle>
           <CardDescription>
-            Visit localhost:3000/play to join using the game code above
+            Visit localhost:3000/play to join using the game code above.
+            Waiting? Submit a suggestion for this game song.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -45,7 +63,7 @@ function Lobby({ code, nextStep }: LobbyProps) {
           </div>
         </CardContent>
         <CardFooter>
-          <Button onClick={nextStep}> Start Game </Button>
+          <Button onClick={startGame}> Start Game </Button>
         </CardFooter>
       </Card>
     </div>

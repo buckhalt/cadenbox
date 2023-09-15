@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "~/convex/_generated/api";
 import {
   Card,
@@ -12,7 +12,7 @@ import {
 } from "~/components/ui/card";
 import { Button } from "~/components/ui/button";
 import PlayerCard from "~/components/playerCard";
-
+import getSongClip from "~/lib/utils/getSongClip";
 interface PlaySongProps {
   code: string;
   nextStep: () => void;
@@ -21,6 +21,7 @@ interface PlaySongProps {
 function PlaySong({ code, nextStep }: PlaySongProps) {
   const game = useQuery(api.games.getGame, { code });
   const allPlayers = useQuery(api.players.getAllPlayersInGame, { code });
+
   return (
     <div>
       <Card>
