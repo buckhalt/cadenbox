@@ -62,18 +62,18 @@ function PlayerSubmitAnswers({ code, player }: PlayerSubmitAnswersProps) {
     // toast success
   }
 
-  if (submitted) {
-    // would be nice to use db to check if note has been submitted
-    return <div>note submitted!</div>;
-  }
-
   return (
-    <div>
+    <div className="w-96">
       <div>
         <div className="flex flex-col items-center space-y-8 p-24">
           <PlayerCard name={player.name} color={player.color} />
           {submitted ? (
-            <div>Note submitted! Waiting for other players...</div>
+            <Card>
+              <CardHeader>
+                <CardTitle>Note Submitted!</CardTitle>
+              </CardHeader>
+              <CardContent>Waiting for other players...</CardContent>
+            </Card>
           ) : (
             <Card>
               <CardHeader>

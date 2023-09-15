@@ -14,6 +14,7 @@ import {
 import { Button } from "~/components/ui/button";
 import PlayerCard from "~/components/playerCard";
 import { Progress } from "~/components/ui/progress";
+import GameCode from "~/components/gameCode";
 
 interface SubmitAnswersProps {
   code: string;
@@ -42,16 +43,25 @@ function SubmitAnswers({ code, nextStep }: SubmitAnswersProps) {
 
   return (
     <div>
-      <Card>
-        <CardHeader>
-          <CardTitle>Submit Answers {code}</CardTitle>
-          <CardDescription>Players who have submitted notes:</CardDescription>
+      <Card className="w-96">
+        <CardHeader className="relative">
+          <div>
+            <CardTitle className="flex justify-between">
+              <h1 className="text-6xl text-primary">SUBMIT</h1>
+              <GameCode code={code} />
+            </CardTitle>
+          </div>
+
+          <CardDescription>
+            <p>Use your device to submit a note that describes the song</p>
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap justify-evenly">
+            <Progress value={progressPercentage} />
             {allPlayers && allPlayers.length > 0 ? (
               allPlayers.map((player) => (
-                <div key={player.name} className="text-center mb-4">
+                <div key={player.name} className="text-center mb-4 mt-4">
                   {player.note !== "" && (
                     <PlayerCard name={player.name} color={player.color} />
                   )}
@@ -60,7 +70,6 @@ function SubmitAnswers({ code, nextStep }: SubmitAnswersProps) {
             ) : (
               <p>Submit your answers!</p>
             )}
-            <Progress value={progressPercentage} />
           </div>
         </CardContent>
         <CardFooter>

@@ -67,9 +67,12 @@ function PlayerLobby({ code, player }: PlayerLobbyProps) {
         <div className="flex flex-col items-center space-y-8 p-24">
           <PlayerCard name={player.name} color={player.color} />
           {submitted ? (
-            <div>
-              Song suggestion submitted! Waiting for host to start game...
-            </div>
+            <Card>
+              <CardHeader>
+                <CardTitle>Suggestion Submitted!</CardTitle>
+              </CardHeader>
+              <CardContent>Waiting for host to start game...</CardContent>
+            </Card>
           ) : (
             <Card>
               <CardHeader>

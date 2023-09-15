@@ -4,6 +4,13 @@ import { useMutation, useQuery } from "convex/react";
 import { useState } from "react";
 import NoteCard from "~/components/noteCard";
 import PlayerCard from "~/components/playerCard";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardDescription,
+} from "~/components/ui/card";
 import { api } from "~/convex/_generated/api";
 import shuffleArray from "~/lib/utils/shuffleArray";
 
@@ -48,9 +55,12 @@ function PlayerVote({ code, player }: PlayerVoteProps) {
 
   if (player.vote) {
     return (
-      <div>
-        <h1>Thanks for voting!</h1>
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Vote Submitted!</CardTitle>
+        </CardHeader>
+        <CardContent>Waiting for other players...</CardContent>
+      </Card>
     );
   }
 
@@ -59,22 +69,29 @@ function PlayerVote({ code, player }: PlayerVoteProps) {
       <div>
         <div className="flex flex-col items-center space-y-8 p-24">
           <PlayerCard name={player.name} color={player.color} />
-          <div>Select a note to cast your vote!</div>
-          <div className="flex flex-wrap justify-evenly">
-            {playersToVoteOn && playersToVoteOn.length > 0 ? (
-              playersToVoteOn.map((player) => (
-                <button
-                  key={player.name}
-                  className="text-center mb-4"
-                  onClick={() => castVote(player.name)}
-                >
-                  <NoteCard note={player.note} />
-                </button>
-              ))
-            ) : (
-              <p>No players in the game.</p>
-            )}
-          </div>
+          <Card>
+            <CardHeader>
+              <CardTitle>VOTE</CardTitle>
+              <CardDescription>Select a note to cast your vote</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap justify-evenly">
+                {playersToVoteOn && playersToVoteOn.length > 0 ? (
+                  playersToVoteOn.map((player) => (
+                    <button
+                      key={player.name}
+                      className="text-center mb-4"
+                      onClick={() => castVote(player.name)}
+                    >
+                      <NoteCard note={player.note} />
+                    </button>
+                  ))
+                ) : (
+                  <p>No votes in the game.</p>
+                )}
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

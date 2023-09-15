@@ -14,6 +14,7 @@ import {
 import { Button } from "~/components/ui/button";
 import PlayerCard from "~/components/playerCard";
 import { Progress } from "~/components/ui/progress";
+import GameCode from "~/components/gameCode";
 
 interface VoteProps {
   code: string;
@@ -42,13 +43,22 @@ function Vote({ code, nextStep }: VoteProps) {
 
   return (
     <div>
-      <Card>
-        <CardHeader>
-          <CardTitle>Vote{code}</CardTitle>
-          <CardDescription>Players who have submitted votes:</CardDescription>
+      <Card className="w-96">
+        <CardHeader className="relative">
+          <div>
+            <CardTitle className="flex justify-between">
+              <h1 className="text-6xl text-primary">VOTE</h1>
+              <GameCode code={code} />
+            </CardTitle>
+          </div>
+
+          <CardDescription>
+            <p>Use your device to cast your votes</p>
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap justify-evenly">
+            <Progress value={progressPercentage} />
             {allPlayers && allPlayers.length > 0 ? (
               allPlayers.map((player) => (
                 <div key={player.name} className="text-center mb-4">
@@ -60,7 +70,6 @@ function Vote({ code, nextStep }: VoteProps) {
             ) : (
               <p>Cast your votes!</p>
             )}
-            <Progress value={progressPercentage} />{" "}
           </div>
         </CardContent>
         <CardFooter>

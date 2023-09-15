@@ -15,6 +15,7 @@ import PlayerCard from "~/components/playerCard";
 import NoteCard from "~/components/noteCard";
 import { useRouter } from "next/navigation";
 import sortPlayersByVotes from "~/lib/utils/sortPlayersByVotes";
+import GameCode from "~/components/gameCode";
 
 interface RevealProps {
   code: string;
@@ -53,10 +54,14 @@ function Reveal({ code }: RevealProps) {
 
   return (
     <div>
-      <Card>
-        <CardHeader>
-          <CardTitle>Reveal{code}</CardTitle>
-          <CardDescription>Results:</CardDescription>
+      <Card className="w-96">
+        <CardHeader className="relative">
+          <div>
+            <CardTitle className="flex justify-between">
+              <h1 className="text-6xl text-primary">RESULTS</h1>
+              <GameCode code={code} />
+            </CardTitle>
+          </div>
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap justify-evenly">
