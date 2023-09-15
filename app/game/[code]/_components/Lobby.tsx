@@ -14,6 +14,7 @@ import { Button } from "~/components/ui/button";
 import PlayerCard from "~/components/playerCard";
 import getSongClip from "~/lib/utils/getSongClip";
 import { useSession } from "next-auth/react";
+import GameCode from "~/components/gameCode";
 
 interface LobbyProps {
   code: string;
@@ -41,9 +42,10 @@ function Lobby({ code, nextStep }: LobbyProps) {
 
   return (
     <div>
+      <GameCode code={code} />
       <Card>
         <CardHeader>
-          <CardTitle>Game code: {code}</CardTitle>
+          <CardTitle>Lobby</CardTitle>
           <CardDescription>
             Visit localhost:3000/play to join using the game code above.
             Waiting? Submit a suggestion for this game song.

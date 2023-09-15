@@ -21,7 +21,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="bg-[url('/public/background.svg')] bg-cover bg-center min-h-screen">
+        <div className="min-h-screen">
           <ConvexClientProvider>
             <SessionProvider session={session}>
               <NavBar />
