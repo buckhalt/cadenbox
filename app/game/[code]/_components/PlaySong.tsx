@@ -1,6 +1,5 @@
-"use client";
-
-import { useMutation, useQuery } from "convex/react";
+import { useState, useEffect } from "react";
+import { useQuery } from "convex/react";
 import { api } from "~/convex/_generated/api";
 import {
   Card,
@@ -12,7 +11,8 @@ import {
 } from "~/components/ui/card";
 import { Button } from "~/components/ui/button";
 import PlayerCard from "~/components/playerCard";
-import getSongClip from "~/lib/utils/getSongClip";
+import { Progress } from "~/components/ui/progress";
+
 interface PlaySongProps {
   code: string;
   nextStep: () => void;
@@ -21,13 +21,31 @@ interface PlaySongProps {
 function PlaySong({ code, nextStep }: PlaySongProps) {
   const game = useQuery(api.games.getGame, { code });
   const allPlayers = useQuery(api.players.getAllPlayersInGame, { code });
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const decrementTimer = () => {
+      if (seconds < 30) {
+        setSeconds(seconds + 1);
+      } else {
+        // When the timer reaches 30, call nextStep
+        nextStep();
+      }
+    };
+    const timer = setInterval(decrementTimer, 1000);
+
+    // Clean up the timer when the component unmounts
+    return () => clearInterval(timer);
+  }, [seconds, nextStep]);
+
+  const progressPercentage = (seconds / 30) * 100;
 
   return (
     <div>
       <Card>
         <CardHeader>
           <CardTitle>Play Song{code}</CardTitle>
-          <CardDescription>Play a sOng</CardDescription>
+          <CardDescription>Play a song</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap justify-evenly">
@@ -50,10 +68,11 @@ function PlaySong({ code, nextStep }: PlaySongProps) {
                 loading="lazy"
               ></iframe>
             )}
+            <Progress value={progressPercentage} />
           </div>
         </CardContent>
         <CardFooter>
-          <Button onClick={nextStep}> Next</Button>
+          <Button onClick={nextStep}>Next</Button>
         </CardFooter>
       </Card>
     </div>
