@@ -5,7 +5,6 @@ import { api } from "~/convex/_generated/api";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -53,8 +52,8 @@ function Reveal({ code }: RevealProps) {
   };
 
   return (
-    <div>
-      <Card className="w-96">
+    <div className="flex justify-center">
+      <Card className="w-1/2">
         <CardHeader className="relative">
           <div>
             <CardTitle className="flex justify-between">
@@ -64,26 +63,36 @@ function Reveal({ code }: RevealProps) {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-wrap justify-evenly">
+          {game && (
+            <iframe
+              style={{ borderRadius: "12px" }}
+              src={`https://open.spotify.com/embed/track/${game.song}?utm_source=generator`}
+              width="100%"
+              height="100"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+            ></iframe>
+          )}
+          <h1 className="text-xl mb-2">NOTES OF</h1>
+          <div className="flex flex-wrap">
             {allPlayers && allPlayers.length > 0 ? (
               allPlayers.map((player) => (
                 <div key={player.name} className="text-center mb-4">
-                  <PlayerCard name={player.name} color={player.color} />
-                  <NoteCard note={player.note} />
-                  <p>Points: {player.points}</p>
-                  {/* Render voters for this player */}
-                  {player.vote && player.vote !== player.name && (
-                    <div>
-                      <p>Voters for {player.name}:</p>
-                      {getVotersForPlayer(player.name).map((voter) => (
-                        <PlayerCard
-                          key={voter.name}
-                          name={voter.name}
-                          color={voter.color}
-                        />
-                      ))}
-                    </div>
-                  )}
+                  <div className="flex flex-row space-x-2 items-start">
+                    <PlayerCard name={player.name} color={player.color} />
+                    <NoteCard note={player.note} />
+                    {player.vote && player.vote !== player.name && (
+                      <div className="ml-2 flex space-x-2">
+                        {getVotersForPlayer(player.name).map((voter) => (
+                          <PlayerCard
+                            key={voter.name}
+                            name={voter.name}
+                            color={voter.color}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
               ))
             ) : (

@@ -64,7 +64,7 @@ function PlaySong({ code, nextStep }: PlaySongProps) {
           style={{ borderRadius: "12px" }}
           src={`https://open.spotify.com/embed/track/${game.song}?utm_source=generator`}
           width="100%"
-          height="352"
+          height="200"
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
           loading="lazy"
         ></iframe>
