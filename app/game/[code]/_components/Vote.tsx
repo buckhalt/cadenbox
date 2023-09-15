@@ -61,7 +61,7 @@ function Vote({ code, nextStep }: VoteProps) {
             <Progress value={progressPercentage} />
             {allPlayers && allPlayers.length > 0 ? (
               allPlayers.map((player) => (
-                <div key={player.name} className="text-center mb-4">
+                <div key={player.name} className="text-center mb-4 mt-4">
                   {player.vote !== "" && (
                     <PlayerCard name={player.name} color={player.color} />
                   )}

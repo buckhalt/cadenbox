@@ -55,12 +55,14 @@ function PlayerVote({ code, player }: PlayerVoteProps) {
 
   if (player.vote) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Vote Submitted!</CardTitle>
-        </CardHeader>
-        <CardContent>Waiting for other players...</CardContent>
-      </Card>
+      <div className="flex flex-col items-center space-y-8 p-24">
+        <Card>
+          <CardHeader>
+            <CardTitle>Vote Submitted!</CardTitle>
+          </CardHeader>
+          <CardContent>Waiting for other players...</CardContent>
+        </Card>
+      </div>
     );
   }
 

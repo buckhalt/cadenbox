@@ -1,7 +1,12 @@
-"use client";
-
 import { useState, useEffect } from "react";
 import PlayerCard from "~/components/playerCard";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardDescription,
+} from "~/components/ui/card";
 import { Progress } from "~/components/ui/progress";
 
 interface PlayerPlaySongProps {
@@ -20,7 +25,7 @@ function PlayerPlaySong({ code, player }: PlayerPlaySongProps) {
 
   useEffect(() => {
     const decrementTimer = () => {
-      if (seconds < 30) {
+      if (seconds < 45) {
         setSeconds(seconds + 1);
       }
     };
@@ -30,18 +35,24 @@ function PlayerPlaySong({ code, player }: PlayerPlaySongProps) {
     return () => clearInterval(timer);
   }, [seconds]);
 
-  const progressPercentage = (seconds / 30) * 100;
+  const progressPercentage = (seconds / 45) * 100;
+
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <div>
-        <div className="flex flex-wrap justify-evenly">
-          <PlayerCard name={player.name} color={player.color} />
-          <Progress value={progressPercentage} />
-          <div className="text-center">
-            Listen to the song and think of a note.
-          </div>
-        </div>
+    <div className="w-96 h-screen flex flex-col justify-center items-center p-8">
+      <div className="mb-8">
+        <PlayerCard name={player.name} color={player.color} />
       </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Song Playing</CardTitle>
+          <CardDescription>
+            Listen to the song and think of a note
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="mb-4">
+          <Progress value={progressPercentage} />
+        </CardContent>
+      </Card>
     </div>
   );
 }
