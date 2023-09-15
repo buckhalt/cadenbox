@@ -53,19 +53,19 @@ function Lobby({ code, nextStep }: LobbyProps) {
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap justify-evenly">
-            {allPlayers && allPlayers.length > 0 ? (
+            {allPlayers &&
+              allPlayers.length > 0 &&
               allPlayers.map((player) => (
                 <div key={player.name} className="text-center mb-4">
                   <PlayerCard name={player.name} color={player.color} />
                 </div>
-              ))
-            ) : (
-              <p>No players in the game.</p>
-            )}
+              ))}
           </div>
         </CardContent>
         <CardFooter>
-          <Button onClick={startGame}> Start Game </Button>
+          <Button onClick={startGame} disabled={allPlayers?.length === 0}>
+            Start Game
+          </Button>
         </CardFooter>
       </Card>
     </div>

@@ -23,10 +23,7 @@ export default async function RootLayout({
       <body className={inter.className}>
         <div className="min-h-screen">
           <ConvexClientProvider>
-            <SessionProvider session={session}>
-              <NavBar />
-              {children}
-            </SessionProvider>
+            <SessionProvider session={session}>{children}</SessionProvider>
           </ConvexClientProvider>
         </div>
       </body>

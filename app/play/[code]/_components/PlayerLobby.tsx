@@ -68,8 +68,7 @@ function PlayerLobby({ code, player }: PlayerLobbyProps) {
   return (
     <div>
       <div>
-        <h1>{code}</h1>
-        <div className="flex flex-wrap justify-evenly">
+        <div className="flex flex-col items-center space-y-8">
           <PlayerCard name={player.name} color={player.color} />
           <Card>
             <CardHeader>
