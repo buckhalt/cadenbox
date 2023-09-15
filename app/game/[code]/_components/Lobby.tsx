@@ -42,13 +42,17 @@ function Lobby({ code, nextStep }: LobbyProps) {
 
   return (
     <div>
-      <GameCode code={code} />
       <Card>
-        <CardHeader>
-          <CardTitle>Lobby</CardTitle>
+        <CardHeader className="relative">
+          <div>
+            <CardTitle className="flex justify-between">
+              <h1 className="text-6xl text-primary">LOBBY</h1>
+              <GameCode code={code} />
+            </CardTitle>
+          </div>
+
           <CardDescription>
-            Visit localhost:3000/play to join using the game code above.
-            Waiting? Submit a suggestion for this game song.
+            <p>Visit localhost:3000/play to join using the game code.</p>
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -62,7 +66,7 @@ function Lobby({ code, nextStep }: LobbyProps) {
               ))}
           </div>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="flex justify-center">
           <Button onClick={startGame} disabled={allPlayers?.length === 0}>
             Start Game
           </Button>
