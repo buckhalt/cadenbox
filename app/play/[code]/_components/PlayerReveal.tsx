@@ -20,29 +20,38 @@ interface PlayerRevealProps {
 function PlayerReveal({ code, player }: PlayerRevealProps) {
   const allPlayers = useQuery(api.players.getAllPlayersInGame, { code });
 
-  let rank = -1;
+  let rankText = "";
 
   if (allPlayers) {
     const sortedPlayers = sortPlayersByVotes([...allPlayers]); // Create a copy and sort it
-    rank = sortedPlayers.findIndex((p) => p.name === player.name);
+    const rank = sortedPlayers.findIndex((p) => p.name === player.name);
+
+    if (rank === 0) {
+      rankText = "🥇";
+    } else if (rank === 1) {
+      rankText = "🥈";
+    } else if (rank === 2) {
+      rankText = "🥉";
+    } else {
+      rankText = `${rank + 1}th place`;
+    }
   }
 
   return (
-    <div>
-      <div>
-        <div className="flex flex-col items-center space-y-8 p-24">
+    <div className="flex justify-center items-center h-screen">
+      <Card>
+        <CardHeader>
+          <h1 className="text-primary text-4xl text-center">RESULTS</h1>
+        </CardHeader>
+
+        <div className="flex flex-col items-center space-y-4 p-4">
           <PlayerCard name={player.name} color={player.color} />
-          <Card>
-            <CardHeader>
-              <h1 className="text-primary text-4xl">Results</h1>
-            </CardHeader>
-            <CardContent>
-              <p>Points: {player.points}</p>
-              {rank !== -1 && <p>Rank: {rank + 1}</p>}
-            </CardContent>
-          </Card>
+          <CardContent>
+            <p className="text-center">Points: {player.points}</p>
+            <p className="text-center text-4xl">{rankText}</p>
+          </CardContent>
         </div>
-      </div>
+      </Card>
     </div>
   );
 }
