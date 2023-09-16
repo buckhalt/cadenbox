@@ -73,7 +73,7 @@ function Reveal({ code }: RevealProps) {
               loading="lazy"
             ></iframe>
           )}
-          <h1 className="text-xl mb-2">NOTES OF</h1>
+          <h1 className="text-2xl mb-2">NOTES OF</h1>
           <div className="flex flex-wrap">
             {allPlayers && allPlayers.length > 0 ? (
               allPlayers.map((player) => (
