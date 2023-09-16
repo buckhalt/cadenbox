@@ -47,8 +47,7 @@ function PlayerReveal({ code, player }: PlayerRevealProps) {
         <div className="flex flex-col items-center space-y-4 p-4">
           <PlayerCard name={player.name} color={player.color} />
           <CardContent>
-            <p className="text-center">Points: {player.points}</p>
-            <p className="text-center text-4xl">{rankText}</p>
+            <p className="text-center text-6xl">{rankText}</p>
           </CardContent>
         </div>
       </Card>

@@ -67,14 +67,14 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen items-center justify-center p-24 flex-col">
+      <div className="text-4xl font-bold mb-8">NOTES </div>
+      <Headphones className="w-24 h-24 mb-8 text-secondary" />
       {session ? (
         <>
-          <Headphones className="w-24 h-24 mb-8 text-secondary" />
           <Button onClick={newGame}>New Game</Button>
         </>
       ) : (
         <>
-          <div className="text-4xl font-bold mb-8">Please sign in</div>
           <Button onClick={() => signIn()}>Sign In</Button>
         </>
       )}
