@@ -52,7 +52,7 @@ function Lobby({ code, nextStep }: LobbyProps) {
           </div>
 
           <CardDescription>
-            <p>Visit localhost:3000/play to join using the game code.</p>
+            <p>Use your phone to join using the game code.</p>
           </CardDescription>
         </CardHeader>
         <CardContent>
