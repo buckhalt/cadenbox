@@ -1,5 +1,4 @@
-"use client";
-
+import React from "react";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "~/convex/_generated/api";
 import {
@@ -15,6 +14,7 @@ import PlayerCard from "~/components/playerCard";
 import getSongClip from "~/lib/utils/getSongClip";
 import { useSession } from "next-auth/react";
 import GameCode from "~/components/gameCode";
+import SongSidebar from "./SongSidebar";
 
 interface LobbyProps {
   code: string;
@@ -72,6 +72,9 @@ function Lobby({ code, nextStep }: LobbyProps) {
           </Button>
         </CardFooter>
       </Card>
+      <div className="mt-4">
+        <SongSidebar code={code} />
+      </div>
     </div>
   );
 }

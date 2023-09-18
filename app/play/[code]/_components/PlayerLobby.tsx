@@ -1,20 +1,9 @@
-"use client";
-
-import PlayerCard from "~/components/playerCard";
-import { Button } from "~/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "~/components/ui/form";
-import { Input } from "~/components/ui/input";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-
+import * as z from "zod";
+import { useMutation } from "convex/react";
+import { api } from "~/convex/_generated/api";
 import {
   Card,
   CardContent,
@@ -22,9 +11,11 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import * as z from "zod";
-import { useMutation } from "convex/react";
-import { api } from "~/convex/_generated/api";
+import { Input } from "~/components/ui/input";
+import { Button } from "~/components/ui/button";
+import { Form, FormField, FormItem, FormMessage } from "~/components/ui/form";
+import PlayerCard from "~/components/playerCard";
+
 // Define a schema for the song suggestion
 const SongSuggestionSchema = z.object({
   song: z.string().min(1),
@@ -71,10 +62,14 @@ function PlayerLobby({ code, player }: PlayerLobbyProps) {
               <CardHeader>
                 <CardTitle>Suggestion Submitted!</CardTitle>
               </CardHeader>
-              <CardContent>Waiting for host to start game...</CardContent>
+              <CardContent>
+                Waiting for the host to start the game...
+              </CardContent>
             </Card>
           ) : (
-            <Card>
+            <Card className="w-96">
+              {" "}
+              {/* Increase the width of the sidebar here */}
               <CardHeader>
                 <CardTitle>Song Suggestion</CardTitle>
                 <CardDescription>
@@ -92,9 +87,7 @@ function PlayerLobby({ code, player }: PlayerLobbyProps) {
                       name="song"
                       render={({ field }) => (
                         <FormItem>
-                          <FormControl>
-                            <Input placeholder="song name" {...field} />
-                          </FormControl>
+                          <Input placeholder="Song name" {...field} />
                           <FormMessage />
                         </FormItem>
                       )}
